@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.22)
 
 project(
-    "CppTemplate"
+    "CppCMakeTemplate"
     VERSION 1.0.0
     LANGUAGES C CXX)
 
@@ -10,6 +10,9 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+# Project/Library Names
+set(EXECUTABLE_NAME "main")
 
 # Options
 option(USE_CONAN "Whether to use Conan." OFF)
@@ -34,8 +37,6 @@ option(ENABLE_CMAKE_FORMAT "Enable to add cmake-format." OFF)
 
 option(ENABLE_LTO "Enable to add Link Time Optimization." ON)
 
-# Project/Library Names
-set(EXECUTABLE_NAME "main")
 
 # CMAKE MODULES
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
@@ -73,12 +74,12 @@ endif()
 if(USE_CPM)
     message(STATUS "Using CPM")
     include(CPM)
-    cpmaddpackage("gh:nlohmann/json#v3.11.3")
-    cpmaddpackage("gh:fmtlib/fmt#9.1.0")
-    cpmaddpackage("gh:gabime/spdlog#v1.13.0")
-    cpmaddpackage("gh:jarro2783/cxxopts#v3.1.1")
+    CPMAddPackage("gh:nlohmann/json#v3.11.3")
+    CPMAddPackage("gh:fmtlib/fmt#9.1.0")
+    CPMAddPackage("gh:gabime/spdlog#v1.13.0")
+    CPMAddPackage("gh:jarro2783/cxxopts#v3.1.1")
     if(ENABLE_TESTING)
-        cpmaddpackage("gh:catchorg/Catch2#v3.5.3")
+    CPMAddPackage("gh:catchorg/Catch2#v3.5.3")
         list(APPEND CMAKE_MODULE_PATH ${Catch2_SOURCE_DIR}/extras)
     endif()
 elseif(USE_CONAN OR USE_VCPKG)
